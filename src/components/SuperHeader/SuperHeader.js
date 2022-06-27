@@ -6,30 +6,38 @@ import { COLORS } from '../../constants';
 import SearchInput from '../SearchInput';
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
+import Spacer from '../Spacer';
 
 const SuperHeader = () => {
   return (
     <Wrapper>
-      <MarketingMessage>
-        Free shipping on domestic orders over $75!
-      </MarketingMessage>
+      <MarketingMessage>Free shipping on domestic orders over $75!</MarketingMessage>
       <SearchInput />
-      <HelpLink href="/help">Help</HelpLink>
+      <Spacer size={24} />
+      <HelpLink href='/help'>Help</HelpLink>
+      <Spacer size={24} />
       <UnstyledButton>
-        <Icon id="shopping-bag" strokeWidth={1} />
+        <Icon id='shopping-bag' strokeWidth={1} />
       </UnstyledButton>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
+  height: 40px;
+  padding-left: 32px;
+  padding-right: 32px;
+  //gap: 24px; no has support to IE
 `;
 
 const MarketingMessage = styled.span`
   color: ${COLORS.white};
+  margin-right: auto;
 `;
 
 const HelpLink = styled.a`
