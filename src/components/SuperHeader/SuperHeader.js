@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLORS } from '../../constants';
+import { COLORS, QUERIES } from '../../constants';
 
 import SearchInput from '../SearchInput';
 import UnstyledButton from '../UnstyledButton';
@@ -33,6 +33,10 @@ const Wrapper = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   //gap: 24px; no has support to IE
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
+  }
 `;
 
 const MarketingMessage = styled.span`
