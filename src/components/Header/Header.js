@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 
-import { COLORS, QUERIES, WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from '../../constants';
 import Logo from '../Logo';
 import Icon from '../Icon';
 import UnstyledButton from '../UnstyledButton';
 import SuperHeader from '../SuperHeader';
+import MobileMenu from '../MobileMenu';
 import VisuallyHidden from '../VisuallyHidden';
 
 const Header = () => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  // Our site features two visual headers, but they should be
-  // grouped semantically as a single header.
+  const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+
   return (
     <header>
       <SuperHeader />
@@ -20,29 +20,34 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href='/sale'>Sale</NavLink>
-          <NavLink href='/new'>New&nbsp;Releases</NavLink>
-          <NavLink href='/men'>Men</NavLink>
-          <NavLink href='/women'>Women</NavLink>
-          <NavLink href='/kids'>Kids</NavLink>
-          <NavLink href='/collections'>Collections</NavLink>
+          <NavLink href="/sale">Sale</NavLink>
+          <NavLink href="/new">New&nbsp;Releases</NavLink>
+          <NavLink href="/men">Men</NavLink>
+          <NavLink href="/women">Women</NavLink>
+          <NavLink href="/kids">Kids</NavLink>
+          <NavLink href="/collections">Collections</NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
-            <Icon id='shopping-bag' />
+            <Icon id="shopping-bag" />
             <VisuallyHidden>Open cart</VisuallyHidden>
           </ShoppingBagButton>
           <UnstyledButton>
-            <Icon id='search' />
+            <Icon id="search" />
             <VisuallyHidden>Search</VisuallyHidden>
           </UnstyledButton>
-          <UnstyledButton>
-            <Icon id='menu' />
-            <VisuallyHidden>Menu</VisuallyHidden>
+          <UnstyledButton onClick={() => setShowMobileMenu(true)}>
+            <Icon id="menu" />
+            <VisuallyHidden>Open menu</VisuallyHidden>
           </UnstyledButton>
         </MobileActions>
         <Filler />
       </MainHeader>
+
+      <MobileMenu
+        isOpen={showMobileMenu}
+        onDismiss={() => setShowMobileMenu(false)}
+      />
     </header>
   );
 };
@@ -51,13 +56,13 @@ const MainHeader = styled.div`
   display: flex;
   align-items: baseline;
   padding: 18px 32px;
-  height: 72px;
-  border-bottom: 1px solid ${COLORS.gray[300]};
+  border-bottom: 1px solid var(--color-gray-300);
+  overflow: auto;
 
   @media ${QUERIES.tabletAndSmaller} {
-    border-top: 4px solid ${COLORS.gray[900]};
     justify-content: space-between;
     align-items: center;
+    border-top: 4px solid var(--color-gray-900);
   }
 
   @media ${QUERIES.phoneAndSmaller} {
@@ -68,8 +73,8 @@ const MainHeader = styled.div`
 
 const DesktopNav = styled.nav`
   display: flex;
-  gap: 48px;
-  margin: 0 48px;
+  gap: clamp(1rem, 9.2vw - 4.5rem, 3.5rem);
+  margin: 0px 48px;
 
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
@@ -79,10 +84,9 @@ const DesktopNav = styled.nav`
 const MobileActions = styled.div`
   display: none;
 
-
   @media ${QUERIES.tabletAndSmaller} {
-    display: flex;
     gap: 32px;
+    display: flex;
   }
 
   @media ${QUERIES.phoneAndSmaller} {
@@ -114,11 +118,11 @@ const NavLink = styled.a`
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: ${COLORS.gray[900]};
+  color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
 
   &:first-of-type {
-    color: ${COLORS.secondary};
+    color: var(--color-secondary);
   }
 `;
 
